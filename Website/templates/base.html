@@ -14,7 +14,9 @@
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       crossorigin="anonymous"
     />
-    <title>{% block title %}Maybe{% endblock%}</title>
+    {% block header%}
+    <title>{% block title %}Maybe{% endblock %}</title>
+    {% endblock %}
   </head>
   <body>
 
@@ -37,9 +39,6 @@
 
         </div>
 
-
-
-
     </div>
     </nav>
 
@@ -47,32 +46,6 @@
       {% block content %}
       {% endblock %}
     </div>
-
-
-    
-    <div class="Links">
-      <div class="Link1 rainbow-text"><a class="RAIN" href="Begin.html">Click Me To Begin</a></div>
-      <div class="Link2 rainbow-text"><a class="RAIN" href="Read.me">Clicke Me To Read How It Started</a></div>
-      <div class="Link3 rainbow-text"><a class="RAIN" href="window.close()">Click Me To Close</a></div>
-    </div>
-  
-  
-    
-          <h5> <a class="Copyright" href="CopyrightLaws.html">&copy;	2021 Copyright</a></h5>
-  
-  
-       <div class="YouFoundMe"
-       data-hover="YOU FOUND MEEEEEEEEEEEEE">
-       
-       
-       Found Me Click Me</div>
-  
-
-
-
-
-
-
 
      <script
      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
