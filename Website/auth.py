@@ -20,3 +20,7 @@ def logout():
 @auth.route('/sign-up')
 def sign_up():
     return render_template("sign_up.html")
+
+@auth.route('/some')
+def some():
+    return render_template("some.html")
