@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for
 from . import db
 from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from flask_login import login_user, login_required, logout_user, current_user
 
 
 
@@ -18,12 +18,14 @@ auth = Blueprint('auth', __name__)
 def login():
     if request.method == 'POST':
         email = request.form.get('email')
-        password = request.form.get('password')
+        password = request.form.get('password', '')
 
         user = User.query.filter_by(email=email).first()
+        print(user.password)
         if user:
             if check_password_hash(user.password, password):   #checks if user.password is the same as password you entered
                 flash('logged in successfully!', category='success')
+                login_user(user, remember=True) #remembers if the user is logged in
                 return redirect(url_for('views.home'))
             else:
                 flash('incorrect password, try again.', category='error')
@@ -33,11 +35,13 @@ def login():
 
 
 
-    return render_template("login.html")
+    return render_template("login.html", user=current_user)
 
 @auth.route('/logout')
+@login_required
 def logout():
-    return "<p>Logout</p>"
+    logout_user()
+    return redirect(url_for('auth.login'))
 
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
@@ -75,6 +79,7 @@ def sign_up():
             new_user = User(email=email, name=name, password=generate_password_hash(password1, method='sha256'))
             db.session.add(new_user)
             db.session.commit()
+            login_user(User, remember=True)
             #user to database
             flash('good job', category='success')
             return redirect(url_for('views.home'))
@@ -84,7 +89,7 @@ def sign_up():
 
 
 
-    return render_template("sign_up.html")
+    return render_template("sign_up.html", user=current_user)
 
 @auth.route('/some')
 def some():
