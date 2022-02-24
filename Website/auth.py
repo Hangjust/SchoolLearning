@@ -22,7 +22,7 @@ def login():
 
         user = User.query.filter_by(email=email).first()
         if user:
-            if check_password_hash(user.password1, password):   #checks if user.password is the same as password you entered
+            if check_password_hash(user.password, password):   #checks if user.password is the same as password you entered
                 flash('logged in successfully!', category='success')
                 return redirect(url_for('views.home'))
             else:
