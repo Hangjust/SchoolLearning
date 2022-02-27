@@ -7,7 +7,7 @@
     {% for note in user.notes %}
     <li class="list-group-item d-flex justify-content-between">
         {{note.data}}
-        <button type="button" class="btn-close" onClick="deleteNote({{ note.id }}" aria-label="Close"></button>
+        <button type="button" class="btn-close" onClick="deleteNote({{ note.id }})" aria-label="Close"></button>
       </li>
     {% endfor %}
 </ul>

@@ -3,7 +3,9 @@ from flask import Blueprint, render_template, request, flash
 from flask_login import login_required, current_user
 from .models import Note
 from . import db
-from flask import json
+from flask import jsonify
+import json
+
 
 views = Blueprint('views', __name__)
 
@@ -27,7 +29,7 @@ def home():
 @views.route('/delete-note', methods=['POST'])
 def delete_note():
     note = json.loads(request.data)
-    noteId = note['note']
+    noteId = note.get('note')
     note = Note.query.get(noteId)
     if note:
         if note.user_id == current_user.id:
